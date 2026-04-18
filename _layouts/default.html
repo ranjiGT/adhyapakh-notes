@@ -40,6 +40,29 @@
           colorLight: "#ffffff"
         });
       }
+
+      var txnInput = document.getElementById('txn-id');
+      var verifyBtn = document.getElementById('verify-btn');
+      var pdfData = document.getElementById('pdf-data');
+      if (txnInput && verifyBtn && pdfData) {
+        txnInput.addEventListener('input', function () {
+          verifyBtn.disabled = txnInput.value.trim().length < 6;
+        });
+        verifyBtn.addEventListener('click', function () {
+          var txnId = txnInput.value.trim();
+          if (txnId.length < 6) {
+            alert('Please enter a valid UPI Transaction / Reference ID (at least 6 characters).');
+            return;
+          }
+          var url = atob(pdfData.getAttribute('data-ref'));
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = '';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        });
+      }
     });
   </script>
   {% endif %}
