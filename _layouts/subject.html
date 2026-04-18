@@ -18,7 +18,8 @@ layout: default
       <ol class="steps">
         <li>Scan the QR code below or tap the <strong>Pay via UPI</strong> button</li>
         <li>Complete the payment of <strong>&#8377; {{ page.price }}</strong></li>
-        <li>Once paid, click the <strong>Download Notes</strong> button</li>
+        <li>Enter your UPI Transaction / Reference ID below</li>
+        <li>Click <strong>Download Notes</strong> to get your PDF</li>
       </ol>
 
       <div class="payment-grid">
@@ -36,11 +37,16 @@ layout: default
             Pay &#8377; {{ page.price }} via UPI
           </a>
 
-          <a href="{{ page.pdf_file | relative_url }}"
-             class="btn btn-download"
-             download>
-            Download Notes (PDF)
-          </a>
+          <div class="txn-verify">
+            <label for="txn-id">UPI Transaction / Reference ID</label>
+            <input type="text" id="txn-id" placeholder="e.g. 123456789012" required minlength="6">
+            <button id="verify-btn" class="btn btn-download" disabled>
+              Download Notes (PDF)
+            </button>
+            <p class="txn-note">Your transaction ID is recorded for verification. Misuse may lead to action.</p>
+            <span id="pdf-data" data-ref="" hidden></span>
+            <script>document.getElementById('pdf-data').setAttribute('data-ref',btoa("{{ page.pdf_file | relative_url }}"));</script>
+          </div>
         </div>
       </div>
     </div>
