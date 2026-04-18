@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% include nav.html %}
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; {{ 'now' | date: "%Y" }} Ranji Raj. All rights reserved.</p>
+      <p>
+        <a href="https://www.youtube.com/@RanjiRaj18" target="_blank" rel="noopener">YouTube</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  {% if page.layout == 'subject' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var qrEl = document.getElementById('upi-qr');
+      if (qrEl) {
+        var upiLink = qrEl.getAttribute('data-upi');
+        new QRCode(qrEl, {
+          text: upiLink,
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff"
+        });
+      }
+    });
+  </script>
+  {% endif %}
+</body>
+</html>

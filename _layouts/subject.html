@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+<section class="subject-hero">
+  <div class="container">
+    <a href="{{ '/' | relative_url }}" class="back-link">&larr; Back to all subjects</a>
+    <h1>{{ page.title }}</h1>
+    <p class="subject-desc">{{ page.description }}</p>
+    <span class="price-tag">&#8377; {{ page.price }}</span>
+  </div>
+</section>
+
+<section class="payment-section">
+  <div class="container">
+    <div class="payment-card">
+      <h2>How to get your notes</h2>
+      <ol class="steps">
+        <li>Scan the QR code below or tap the <strong>Pay via UPI</strong> button</li>
+        <li>Complete the payment of <strong>&#8377; {{ page.price }}</strong></li>
+        <li>Once paid, click the <strong>Download Notes</strong> button</li>
+      </ol>
+
+      <div class="payment-grid">
+        <div class="qr-wrapper">
+          <h3>Scan to Pay</h3>
+          <div id="upi-qr"
+               data-upi="upi://pay?pa=9870794639@pthdfc&amp;pn=Ranji%20Raj&amp;am={{ page.price }}&amp;cu=INR&amp;tn={{ page.title | url_encode }}%20Notes">
+          </div>
+          <p class="upi-id">UPI ID: <code>9870794639@pthdfc</code></p>
+        </div>
+
+        <div class="action-buttons">
+          <a href="upi://pay?pa=9870794639@pthdfc&pn=Ranji%20Raj&am={{ page.price }}&cu=INR&tn={{ page.title | url_encode }}%20Notes"
+             class="btn btn-pay">
+            Pay &#8377; {{ page.price }} via UPI
+          </a>
+
+          <a href="{{ page.pdf_file | relative_url }}"
+             class="btn btn-download"
+             download>
+            Download Notes (PDF)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if page.topics %}
+<section class="topics-section">
+  <div class="container">
+    <h2>Topics Covered</h2>
+    <ul class="topics-list">
+      {% for topic in page.topics %}
+      <li>{{ topic }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
