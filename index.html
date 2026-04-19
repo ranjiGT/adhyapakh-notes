@@ -5,22 +5,49 @@ title: Home
 
 <section class="hero">
   <div class="container">
-    <h1>Adhyapakh Notes</h1>
-    <p>Premium lecture notes for Data Science, AI, and related subjects from the YouTube channel <strong>Ranji Raj</strong>.</p>
+    <span class="hero-badge">&#128218; Premium Study Material</span>
+    <h1>Ace Your Exams with<br><span class="gradient-text">Adhyapakh Notes</span></h1>
+    <p>Handcrafted lecture notes for Data Science, AI, and related subjects from the YouTube channel <strong>Ranji Raj</strong>.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Subjects</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Topics</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">&#8377;100</div>
+        <div class="stat-label">Starting at</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="subjects-section">
   <div class="container">
-    <h2>Available Subjects</h2>
+    <div class="section-header">
+      <div>
+        <h2>Available Subjects</h2>
+        <p class="subtitle">Pick a subject to preview topics and buy notes</p>
+      </div>
+    </div>
     <div class="subjects-grid">
       {% assign sorted = site.subjects | sort: "title" %}
       {% for subject in sorted %}
       <a href="{{ subject.url | relative_url }}" class="subject-card">
-        <span class="subject-icon">{{ subject.icon }}</span>
-        <h3>{{ subject.title }}</h3>
-        <p>{{ subject.description | truncate: 80 }}</p>
-        <span class="price">&#8377;{{ subject.price }}</span>
+        <div class="card-top">
+          <span class="subject-icon">{{ subject.icon }}</span>
+        </div>
+        <div class="card-body">
+          <h3>{{ subject.title }}</h3>
+          <p>{{ subject.description | truncate: 90 }}</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-price">&#8377;{{ subject.price }}</span>
+          <span class="btn btn-primary">View &rarr;</span>
+        </div>
       </a>
       {% endfor %}
     </div>
