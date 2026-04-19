@@ -16,38 +16,20 @@ layout: default
     <div class="payment-card">
       <h2>How to get your notes</h2>
       <ol class="steps">
-        <li>Scan the QR code below or tap the <strong>Pay via UPI</strong> button</li>
-        <li>Complete the payment of <strong>&#8377; {{ page.price }}</strong></li>
-        <li>Enter your UPI Transaction / Reference ID below</li>
-        <li>Click <strong>Download Notes</strong> to get your PDF</li>
+        <li>Click the <strong>Buy Now</strong> button below</li>
+        <li>Complete the payment of <strong>&#8377; {{ page.price }}</strong> via UPI, Card, or Net Banking</li>
+        <li>Your download will start automatically after payment</li>
       </ol>
 
-      <div class="payment-grid">
-        <div class="qr-wrapper">
-          <h3>Scan to Pay</h3>
-          <div id="upi-qr"
-               data-upi="upi://pay?pa=9870794639@pthdfc&amp;pn=Ranji%20Raj&amp;am={{ page.price }}&amp;cu=INR&amp;tn={{ page.title | url_encode }}%20Notes">
-          </div>
-          <p class="upi-id">UPI ID: <code>9870794639@pthdfc</code></p>
-        </div>
-
-        <div class="action-buttons">
-          <a href="upi://pay?pa=9870794639@pthdfc&pn=Ranji%20Raj&am={{ page.price }}&cu=INR&tn={{ page.title | url_encode }}%20Notes"
-             class="btn btn-pay">
-            Pay &#8377; {{ page.price }} via UPI
-          </a>
-
-          <div class="txn-verify">
-            <label for="txn-id">UPI Transaction / Reference ID</label>
-            <input type="text" id="txn-id" placeholder="e.g. 123456789012" required minlength="6">
-            <button id="verify-btn" class="btn btn-download" disabled>
-              Download Notes (PDF)
-            </button>
-            <p class="txn-note">Your transaction ID is recorded for verification. Misuse may lead to action.</p>
-            <span id="pdf-data" data-ref="" hidden></span>
-            <script>document.getElementById('pdf-data').setAttribute('data-ref',btoa("{{ page.pdf_file | relative_url }}"));</script>
-          </div>
-        </div>
+      <div class="payment-action">
+        <button id="rzp-buy-btn" class="btn btn-pay"
+                data-amount="{{ page.price }}"
+                data-name="{{ page.title }}">
+          Buy Notes &mdash; &#8377; {{ page.price }}
+        </button>
+        <p class="payment-note">Secure payment powered by Razorpay. Supports UPI, Cards, Net Banking &amp; Wallets.</p>
+        <span id="pdf-data" data-ref="" hidden></span>
+        <script>document.getElementById('pdf-data').setAttribute('data-ref',btoa("{{ page.pdf_file | relative_url }}"));</script>
       </div>
     </div>
   </div>
