@@ -25,42 +25,43 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   {% if page.layout == 'subject' %}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var qrEl = document.getElementById('upi-qr');
-      if (qrEl) {
-        var upiLink = qrEl.getAttribute('data-upi');
-        new QRCode(qrEl, {
-          text: upiLink,
-          width: 200,
-          height: 200,
-          colorDark: "#000000",
-          colorLight: "#ffffff"
-        });
-      }
-
-      var txnInput = document.getElementById('txn-id');
-      var verifyBtn = document.getElementById('verify-btn');
+      var buyBtn = document.getElementById('rzp-buy-btn');
       var pdfData = document.getElementById('pdf-data');
-      if (txnInput && verifyBtn && pdfData) {
-        txnInput.addEventListener('input', function () {
-          verifyBtn.disabled = txnInput.value.trim().length < 6;
-        });
-        verifyBtn.addEventListener('click', function () {
-          var txnId = txnInput.value.trim();
-          if (txnId.length < 6) {
-            alert('Please enter a valid UPI Transaction / Reference ID (at least 6 characters).');
-            return;
-          }
-          var url = atob(pdfData.getAttribute('data-ref'));
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = '';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
+
+      if (buyBtn && pdfData) {
+        var amount = parseInt(buyBtn.getAttribute('data-amount')) * 100;
+        var name = buyBtn.getAttribute('data-name');
+
+        buyBtn.addEventListener('click', function () {
+          var options = {
+            key: "{{ site.razorpay_key }}",
+            amount: amount,
+            currency: "INR",
+            name: "{{ site.title }}",
+            description: name + " Notes (PDF)",
+            handler: function (response) {
+              var url = atob(pdfData.getAttribute('data-ref'));
+              var a = document.createElement('a');
+              a.href = url;
+              a.download = '';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              buyBtn.textContent = '\u2713 Payment Successful \u2014 Downloading\u2026';
+              buyBtn.disabled = true;
+              buyBtn.classList.add('btn-success');
+            },
+            theme: { color: "#5f259f" }
+          };
+          var rzp = new Razorpay(options);
+          rzp.on('payment.failed', function () {
+            alert('Payment failed. Please try again.');
+          });
+          rzp.open();
         });
       }
     });

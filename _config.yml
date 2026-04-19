@@ -2,6 +2,7 @@ title: "Ranji Raj - Lecture Notes"
 description: "Download premium lecture notes for Data Science, AI, and related subjects"
 url: "https://ranjigt.github.io"
 baseurl: "/adhyapakh-notes"
+razorpay_key: "rzp_test_SfIdTTWjq0nI9L"
 
 collections:
   subjects:
