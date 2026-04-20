@@ -18,6 +18,8 @@ A Jekyll-powered portal for purchasing and downloading lecture notes from the Yo
 2. On a subject page, they scan the UPI QR code or tap the **Pay via UPI** button
 3. After payment, they download the PDF directly
 
+> **Note:** The payment integration is currently a work in progress (WIP).
+
 ## Project Structure
 
 ```
@@ -65,3 +67,7 @@ Place the corresponding PDF in `assets/pdfs/`.
 ## License
 
 All rights reserved. Notes are for personal use only and may not be redistributed.
+
+## Co-Authors
+
+- [u778589_lhgroup](https://github.com/u778589_lhgroup)
